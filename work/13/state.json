@@ -1,0 +1,66 @@
+{
+  "issue": {
+    "number": 13,
+    "snapshot_sha256": "06bfd985da4141b9f4f96aa04558a759871fb911d4f48c409de52af245be02a9",
+    "snapshot_at": "2026-09-07T13:04:06Z"
+  },
+  "base": {
+    "branch": "main",
+    "sha": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf"
+  },
+  "branch": "factory/13",
+  "stages": {
+    "spec": {
+      "start_commit": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf",
+      "at": "2026-09-07T13:06:32Z",
+      "harness": "claude",
+      "model": "claude-fable-5-1",
+      "cli_version": "2.1.263 (Claude Code)",
+      "auth": "subscription",
+      "permission_denials": 0
+    },
+    "plan": {
+      "start_commit": "3b09afa7a84d8d79c6f94be601b82248942b1ff2",
+      "at": "2026-09-07T13:10:06Z",
+      "harness": "claude",
+      "model": "claude-fable-5-1",
+      "cli_version": "2.1.263 (Claude Code)",
+      "auth": "subscription",
+      "permission_denials": 0
+    },
+    "build": {
+      "start_commit": "886d4b3872318d0fe2ae17338b066fce58c2c78a",
+      "at": "2026-09-07T13:13:14Z",
+      "harness": "claude",
+      "model": "claude-fable-5-1",
+      "cli_version": "2.1.263 (Claude Code)",
+      "auth": "subscription",
+      "permission_denials": 7
+    }
+  },
+  "spec_open_questions": [],
+  "spec_accepted": {
+    "by": "operator",
+    "at": "2026-09-07T13:07:42Z"
+  },
+  "reviews": [
+    {
+      "round": 1,
+      "sha": "406224d78862e53f98cec26aeb2de7eba9ce6b0e",
+      "important_open": 0,
+      "important_resolved": 0,
+      "nits": 2,
+      "reraised_dropped": 0,
+      "fix_rounds_at": 0,
+      "diff_truncated": false,
+      "gated": false
+    }
+  ],
+  "fix_rounds": 0,
+  "pr": {
+    "number": 14,
+    "url": "https://github.com/mcnewcp/my-team-fixtures/pull/14"
+  },
+  "outcome": "done",
+  "outcome_sha": "da24b7f615b22dadbc392f32a47c6c704f1e2747"
+}

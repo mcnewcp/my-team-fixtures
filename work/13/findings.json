@@ -1,0 +1,36 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "key": "20cf443239c01ceb4e28c9ceac2b780c3186b92c",
+      "pass": "bugs",
+      "severity": "nit",
+      "file": "tests/test_cli.py",
+      "line": 207,
+      "title": "Unknown-language CLI test does not pin the intended error path",
+      "detail": "The test only checks exit code 2 and that \"xx\" appears on stderr. argparse's own \"unrecognized arguments: --stopwords xx\" error also exits 2 and echoes \"xx\", so the test passes even if the --stopwords option is removed from build_parser() or the ValueError handler in main() is dropped. It therefore cannot detect a regression of criterion 9's requirement that the unsupported code is reported through the stopwords validation path. Asserting on the \"unsupported stopword language\" message text would make it discriminating.",
+      "evidence": "tests/test_cli.py:207 `assert \"xx\" in capsys.readouterr().err` — the plan's own step 5 notes this test \"already passes at this point because argparse rejects the unknown --stopwords option with exit 2 and echoes xx\" before the CLI change exists.",
+      "opened_round": 1,
+      "status": "open",
+      "status_round": null,
+      "status_evidence": null,
+      "dismissed_reason": null
+    },
+    {
+      "id": "F2",
+      "key": "e686f2cd5c148aaf69cb6a78ff0470a3cd57f6a2",
+      "pass": "compliance",
+      "severity": "nit",
+      "file": "src/textkit/stopwords.py",
+      "line": 4,
+      "title": "Stopword module docstring cites a repository licence that does not exist",
+      "detail": "The attribution sentence says the list \"is covered by the repository's own licence\", but there is no LICENSE or LICENCE file anywhere in the repository root (only vendored package licences under .venv). The maintainer approved this wording and criterion 12 accepts attribution in place of licence text, so this is not blocking, but the statement points readers at something that is absent; either the sentence should say the list is unlicensed beyond the repository's terms, or a licence file should be added in a separate change as the plan's Risks section suggests.",
+      "evidence": "src/textkit/stopwords.py:3-4 `The English list below was written for this repository — it is not copied from any\\nthird-party source — and is covered by the repository's own licence.` — a glob for `LICEN[CS]E*` in the worktree matches only files under `.venv/`.",
+      "opened_round": 1,
+      "status": "open",
+      "status_round": null,
+      "status_evidence": null,
+      "dismissed_reason": null
+    }
+  ]
+}

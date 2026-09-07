@@ -21,14 +21,20 @@ def build_parser() -> argparse.ArgumentParser:
 
     stats_parser = subcommands.add_parser("stats", help="print statistics for FILE")
     stats_parser.add_argument("file", type=Path, help="UTF-8 text file to summarize")
+    stats_parser.add_argument(
+        "--stopwords",
+        metavar="LANG",
+        help="exclude the stopwords of language LANG from the top list (supported: en)",
+    )
 
     return parser
 
 
-def _format_stats(text: str) -> str:
+def _format_stats(text: str, *, stopwords: str | None = None) -> str:
     """Render the plain-text statistics report for ``text``."""
     lines = [f"words: {word_count(text)}", f"chars: {char_count(text)}", "top:"]
-    lines += [f"  {word}: {count}" for word, count in top_words(text, TOP_WORDS_SHOWN)]
+    ranked = top_words(text, TOP_WORDS_SHOWN, stopwords=stopwords)
+    lines += [f"  {word}: {count}" for word, count in ranked]
     return "\n".join(lines)
 
 
@@ -43,7 +49,12 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.file.is_file():
         parser.error(f"no such file: {args.file}")
-    print(_format_stats(args.file.read_text(encoding="utf-8")))
+    text = args.file.read_text(encoding="utf-8")
+    try:
+        report = _format_stats(text, stopwords=args.stopwords)
+    except ValueError as exc:
+        parser.error(str(exc))
+    print(report)
     return 0
 
 
