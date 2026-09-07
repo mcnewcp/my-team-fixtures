@@ -1,0 +1,63 @@
+{
+  "issue": {
+    "number": 7,
+    "snapshot_sha256": "581bb892133e9f8b56171f463358f6ca6f6392d2ba212d19ae688664813b2a84",
+    "snapshot_at": "2026-09-07T16:16:03Z"
+  },
+  "base": {
+    "branch": "main",
+    "sha": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf"
+  },
+  "branch": "factory/7",
+  "stages": {
+    "spec": {
+      "start_commit": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf",
+      "at": "2026-09-07T16:17:38Z",
+      "harness": "codex",
+      "model": "(cli default)",
+      "cli_version": "codex-cli 0.153.4",
+      "auth": "subscription",
+      "permission_denials": 0
+    },
+    "plan": {
+      "start_commit": "b0a862331e72f1e96b073cb0bd96659221752087",
+      "at": "2026-09-07T16:20:06Z",
+      "harness": "codex",
+      "model": "(cli default)",
+      "cli_version": "codex-cli 0.153.4",
+      "auth": "subscription",
+      "permission_denials": 0
+    },
+    "build": {
+      "start_commit": "07e797247039b20f8177987ee9a5637b8ea33c7e",
+      "at": "2026-09-07T16:22:12Z",
+      "harness": "codex",
+      "model": "(cli default)",
+      "cli_version": "codex-cli 0.153.4",
+      "auth": "subscription",
+      "permission_denials": 0
+    }
+  },
+  "spec_open_questions": [],
+  "spec_accepted": null,
+  "reviews": [
+    {
+      "round": 1,
+      "sha": "84f3e0000ee95999413d4b8ab7c3193198cb4125",
+      "important_open": 0,
+      "important_resolved": 0,
+      "nits": 0,
+      "reraised_dropped": 0,
+      "fix_rounds_at": 0,
+      "diff_truncated": false,
+      "gated": false
+    }
+  ],
+  "fix_rounds": 0,
+  "pr": {
+    "number": 15,
+    "url": "https://github.com/mcnewcp/my-team-fixtures/pull/15"
+  },
+  "outcome": "done",
+  "outcome_sha": "55da113dc2a8b282a7430e7f3109df9d57cc48d9"
+}

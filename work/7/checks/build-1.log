@@ -1,0 +1,12 @@
+$ make test
+uv run --frozen pytest
+............................                                             [100%]
+28 passed in 0.05s
+Using CPython 3.14.7
+Creating virtual environment at: .venv
+Installed 7 packages in 4ms
+[exit 0]
+$ make lint
+uv run --frozen ruff check .
+All checks passed!
+[exit 0]

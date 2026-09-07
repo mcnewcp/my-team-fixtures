@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 from .slug import slugify
@@ -21,6 +22,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     stats_parser = subcommands.add_parser("stats", help="print statistics for FILE")
     stats_parser.add_argument("file", type=Path, help="UTF-8 text file to summarize")
+    stats_parser.add_argument(
+        "--format", choices=("text", "json"), default="text", help="output format (default: text)"
+    )
 
     return parser
 
@@ -30,6 +34,17 @@ def _format_stats(text: str) -> str:
     lines = [f"words: {word_count(text)}", f"chars: {char_count(text)}", "top:"]
     lines += [f"  {word}: {count}" for word, count in top_words(text, TOP_WORDS_SHOWN)]
     return "\n".join(lines)
+
+
+def _format_stats_json(text: str) -> str:
+    """Return a one-line JSON statistics report for ``text``."""
+    return json.dumps(
+        {
+            "words": word_count(text),
+            "chars": char_count(text),
+            "top": top_words(text, TOP_WORDS_SHOWN),
+        }
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -43,7 +58,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.file.is_file():
         parser.error(f"no such file: {args.file}")
-    print(_format_stats(args.file.read_text(encoding="utf-8")))
+    text = args.file.read_text(encoding="utf-8")
+    renderer = _format_stats_json if args.format == "json" else _format_stats
+    print(renderer(text))
     return 0
 
 
