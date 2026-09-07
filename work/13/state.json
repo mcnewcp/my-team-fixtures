@@ -43,7 +43,19 @@
     "by": "operator",
     "at": "2026-09-07T13:07:42Z"
   },
-  "reviews": [],
+  "reviews": [
+    {
+      "round": 1,
+      "sha": "406224d78862e53f98cec26aeb2de7eba9ce6b0e",
+      "important_open": 0,
+      "important_resolved": 0,
+      "nits": 2,
+      "reraised_dropped": 0,
+      "fix_rounds_at": 0,
+      "diff_truncated": false,
+      "gated": false
+    }
+  ],
   "fix_rounds": 0,
   "pr": {
     "number": 14,

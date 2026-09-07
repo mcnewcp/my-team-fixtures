@@ -1,0 +1,24 @@
+{
+  "summary": "The diff adds opt-in English stopword filtering: a new `src/textkit/stopwords.py` module with a 30-word frozenset and `stopwords_for()`, a keyword-only `stopwords` parameter on `top_words()` that validates the code before the `n <= 0` early return and drops stopwords before truncation, a `--stopwords LANG` option on `textkit stats` routed through `parser.error` on `ValueError` with `read_text` kept outside the `try`, the `__init__` re-export, a README paragraph, and 11 new tests. The bugs pass found no defects: validation order, case-insensitive matching, pre-truncation filtering, the empty-result CLI case, and the `UnicodeDecodeError` ordering are all correct. The security pass found nothing: the only external input echoed back is the language code in the usage error, which criterion 9 requires. The compliance pass found the diff matches the plan's exact changes line for line, touches only the files the plan lists, leaves `pyproject.toml` and `uv.lock` alone, and the recorded `make test` (30 passed) and `make lint` outputs satisfy criterion 14; two nits are raised, and the change is fit to merge.",
+  "updates": [],
+  "new": [
+    {
+      "severity": "nit",
+      "pass": "bugs",
+      "file": "tests/test_cli.py",
+      "line": 207,
+      "title": "Unknown-language CLI test does not pin the intended error path",
+      "detail": "The test only checks exit code 2 and that \"xx\" appears on stderr. argparse's own \"unrecognized arguments: --stopwords xx\" error also exits 2 and echoes \"xx\", so the test passes even if the --stopwords option is removed from build_parser() or the ValueError handler in main() is dropped. It therefore cannot detect a regression of criterion 9's requirement that the unsupported code is reported through the stopwords validation path. Asserting on the \"unsupported stopword language\" message text would make it discriminating.",
+      "evidence": "tests/test_cli.py:207 `assert \"xx\" in capsys.readouterr().err` \u2014 the plan's own step 5 notes this test \"already passes at this point because argparse rejects the unknown --stopwords option with exit 2 and echoes xx\" before the CLI change exists."
+    },
+    {
+      "severity": "nit",
+      "pass": "compliance",
+      "file": "src/textkit/stopwords.py",
+      "line": 4,
+      "title": "Stopword module docstring cites a repository licence that does not exist",
+      "detail": "The attribution sentence says the list \"is covered by the repository's own licence\", but there is no LICENSE or LICENCE file anywhere in the repository root (only vendored package licences under .venv). The maintainer approved this wording and criterion 12 accepts attribution in place of licence text, so this is not blocking, but the statement points readers at something that is absent; either the sentence should say the list is unlicensed beyond the repository's terms, or a licence file should be added in a separate change as the plan's Risks section suggests.",
+      "evidence": "src/textkit/stopwords.py:3-4 `The English list below was written for this repository \u2014 it is not copied from any\\nthird-party source \u2014 and is covered by the repository's own licence.` \u2014 a glob for `LICEN[CS]E*` in the worktree matches only files under `.venv/`."
+    }
+  ]
+}
