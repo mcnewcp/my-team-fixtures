@@ -1,0 +1,6 @@
+{
+  "summary": "The diff adds optional JSON statistics output, preserves default text output, and updates tests and documentation. I read the entire diff and completed the bugs, security, and compliance passes with no findings. Recorded checks show 28 tests passing and lint exiting 0; the change is fit to merge.",
+  "complete": true,
+  "updates": [],
+  "new": []
+}
