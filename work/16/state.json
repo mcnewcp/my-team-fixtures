@@ -1,0 +1,35 @@
+{
+  "base": {
+    "branch": "main",
+    "sha": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf"
+  },
+  "branch": "factory/16",
+  "fix_rounds": 0,
+  "issue": {
+    "number": 16,
+    "snapshot_at": "2026-09-07T19:07:39Z",
+    "snapshot_sha256": "06bfd985da4141b9f4f96aa04558a759871fb911d4f48c409de52af245be02a9",
+    "title": "Filter stopwords in textkit stats",
+    "url": "https://github.com/mcnewcp/my-team-fixtures/issues/16"
+  },
+  "outcome": null,
+  "outcome_sha": null,
+  "pr": null,
+  "reviews": [],
+  "spec_accepted": null,
+  "spec_open_questions": [
+    "Which languages must the first version support, and what stopword source is approved for each: a bundled list with which maintainer-approved licence, or a runtime download from which source?",
+    "Should filtering be enabled by default or opt-in for `stats` and `top_words()`? What CLI flag and Python parameter names, language-selection syntax, and omitted-configuration behavior should be used?",
+    "Should stopwords be excluded only from the ranking, or also from word counts? If counts are filtered, how should that apply to the public `word_count()` function and the CLI's `words:` field?"
+  ],
+  "stages": {
+    "spec": {
+      "at": "2026-09-07T19:09:02Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "commit": "checkpoint:510cb1a5e4f94af78dd26d6950d344cb",
+      "harness": "codex",
+      "model": "CLI default"
+    }
+  }
+}
