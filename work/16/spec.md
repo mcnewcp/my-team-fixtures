@@ -30,3 +30,8 @@ This specification used read-only repository inspection. No files were modified,
 - Which languages must the first version support, and what stopword source is approved for each: a bundled list with which maintainer-approved licence, or a runtime download from which source?
 - Should filtering be enabled by default or opt-in for `stats` and `top_words()`? What CLI flag and Python parameter names, language-selection syntax, and omitted-configuration behavior should be used?
 - Should stopwords be excluded only from the ranking, or also from word counts? If counts are filtered, how should that apply to the public `word_count()` function and the CLI's `words:` field?
+
+## Answers
+- English.  You decide the rest.
+- filtering enabled by default.  You decide the rest.
+- Both. You decide the rest.
