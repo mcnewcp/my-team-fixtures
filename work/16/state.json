@@ -22,7 +22,23 @@
     "number": 17,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/17"
   },
-  "reviews": [],
+  "reviews": [
+    {
+      "at": "2026-09-07T19:24:13Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "fix_rounds": 0,
+      "harness": "codex",
+      "important_open": 0,
+      "important_resolved": 0,
+      "model": "CLI default",
+      "nits": 0,
+      "reraised_dropped": 0,
+      "reviewed_input_sha": "018b11b88d0d8f5729ffee93283cee033c690c94",
+      "round": 1,
+      "sha": "checkpoint:cdcaa8186e71476ab2153139c05b9652"
+    }
+  ],
   "spec_accepted": {
     "at": "2026-09-07T19:14:22Z",
     "by": "operator"
