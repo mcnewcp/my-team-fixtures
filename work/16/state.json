@@ -7,7 +7,7 @@
   "fix_rounds": 0,
   "gate_notice": {
     "ref": "checkpoint:4e67a6d75d9942da8446597595eb435f",
-    "sent": false
+    "sent": true
   },
   "issue": {
     "number": 16,
@@ -17,7 +17,7 @@
     "url": "https://github.com/mcnewcp/my-team-fixtures/issues/16"
   },
   "outcome": "needs_human:open_questions",
-  "outcome_sha": "checkpoint:4e67a6d75d9942da8446597595eb435f",
+  "outcome_sha": "checkpoint:578fadaf8f7049e6af38629af5cf7831",
   "pr": {
     "number": 17,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/17"
