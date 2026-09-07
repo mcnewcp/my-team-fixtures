@@ -1,0 +1,30 @@
+{
+  "issue": {
+    "number": 6,
+    "snapshot_sha256": "7051df144ced802103b9489c285fa6e10363805b348edf24fadb25b2a5f35511",
+    "snapshot_at": "2026-09-07T02:08:43Z"
+  },
+  "base": {
+    "branch": "main",
+    "sha": "4d1da67de01b43345c6aa133efd56490ea009c41"
+  },
+  "branch": "factory/6",
+  "stages": {
+    "spec": {
+      "start_commit": "4d1da67de01b43345c6aa133efd56490ea009c41",
+      "at": "2026-09-07T02:10:45Z",
+      "harness": "codex",
+      "model": "(cli default)",
+      "cli_version": "codex-cli 0.153.4",
+      "auth": "subscription",
+      "permission_denials": 0
+    }
+  },
+  "spec_open_questions": [],
+  "spec_accepted": null,
+  "reviews": [],
+  "fix_rounds": 0,
+  "pr": null,
+  "outcome": null,
+  "outcome_sha": null
+}
