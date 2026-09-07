@@ -20,18 +20,17 @@
       "permission_denials": 0
     }
   },
-  "spec_open_questions": [
-    "Which languages must the first version of stopword filtering in textkit support, and where does each language's stopword list come from (a file bundled under src/textkit with a licence you approve, or a runtime download from a source you approve)? This blocks all implementation, because the repository forbids third-party dependencies and unapproved bundled lists, leaving no permitted source for any list.",
-    "Should stopword filtering in top_words() and `textkit stats` be opt-in (existing results and output unchanged unless a language is requested) or on by default, and if you have a preferred parameter and flag name, what is it? This blocks the public API and CLI surface, and decides whether the existing tests asserting `the: 3` at the top of the sample are rewritten.",
-    "When stopwords are filtered, should word_count() and the `words:` line of `textkit stats` also exclude them, or keep counting every whitespace token as today? This blocks the word_count() signature and the meaning of the CLI report."
-  ],
-  "spec_accepted": null,
+  "spec_open_questions": [],
+  "spec_accepted": {
+    "by": "operator",
+    "at": "2026-09-07T13:07:42Z"
+  },
   "reviews": [],
   "fix_rounds": 0,
   "pr": {
     "number": 14,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/14"
   },
-  "outcome": "needs_human:open_questions",
-  "outcome_sha": "77a7faba147192a0f0a0a5544bcab8b88ad42ac5"
+  "outcome": null,
+  "outcome_sha": null
 }
