@@ -1,0 +1,34 @@
+{
+  "issue": {
+    "number": 13,
+    "snapshot_sha256": "06bfd985da4141b9f4f96aa04558a759871fb911d4f48c409de52af245be02a9",
+    "snapshot_at": "2026-09-07T13:04:06Z"
+  },
+  "base": {
+    "branch": "main",
+    "sha": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf"
+  },
+  "branch": "factory/13",
+  "stages": {
+    "spec": {
+      "start_commit": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf",
+      "at": "2026-09-07T13:06:32Z",
+      "harness": "claude",
+      "model": "claude-fable-5-1",
+      "cli_version": "2.1.263 (Claude Code)",
+      "auth": "subscription",
+      "permission_denials": 0
+    }
+  },
+  "spec_open_questions": [
+    "Which languages must the first version of stopword filtering in textkit support, and where does each language's stopword list come from (a file bundled under src/textkit with a licence you approve, or a runtime download from a source you approve)? This blocks all implementation, because the repository forbids third-party dependencies and unapproved bundled lists, leaving no permitted source for any list.",
+    "Should stopword filtering in top_words() and `textkit stats` be opt-in (existing results and output unchanged unless a language is requested) or on by default, and if you have a preferred parameter and flag name, what is it? This blocks the public API and CLI surface, and decides whether the existing tests asserting `the: 3` at the top of the sample are rewritten.",
+    "When stopwords are filtered, should word_count() and the `words:` line of `textkit stats` also exclude them, or keep counting every whitespace token as today? This blocks the word_count() signature and the meaning of the CLI report."
+  ],
+  "spec_accepted": null,
+  "reviews": [],
+  "fix_rounds": 0,
+  "pr": null,
+  "outcome": null,
+  "outcome_sha": null
+}
