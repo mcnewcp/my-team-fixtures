@@ -49,7 +49,19 @@
       "nits": 0,
       "reraised_dropped": 0,
       "fix_rounds_at": 0,
-      "diff_truncated": false
+      "diff_truncated": false,
+      "gated": false
+    },
+    {
+      "round": 2,
+      "sha": "21b5a8640eabcc6da5410103ea0b56dfa4f1c6a7",
+      "important_open": 0,
+      "important_resolved": 0,
+      "nits": 0,
+      "reraised_dropped": 0,
+      "fix_rounds_at": 0,
+      "diff_truncated": false,
+      "gated": false
     }
   ],
   "fix_rounds": 0,
