@@ -29,6 +29,14 @@
     "Should stopwords be excluded only from the ranking, or also from word counts? If counts are filtered, how should that apply to the public `word_count()` function and the CLI's `words:` field?"
   ],
   "stages": {
+    "plan": {
+      "at": "2026-09-07T19:17:06Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "commit": "checkpoint:3e926b487807469a85913d8e405ff096",
+      "harness": "codex",
+      "model": "CLI default"
+    },
     "spec": {
       "at": "2026-09-07T19:09:02Z",
       "auth": "subscription",
