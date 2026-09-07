@@ -28,7 +28,10 @@
   "spec_accepted": null,
   "reviews": [],
   "fix_rounds": 0,
-  "pr": null,
+  "pr": {
+    "number": 14,
+    "url": "https://github.com/mcnewcp/my-team-fixtures/pull/14"
+  },
   "outcome": null,
   "outcome_sha": null
 }
