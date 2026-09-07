@@ -57,6 +57,6 @@
     "number": 10,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/10"
   },
-  "outcome": null,
-  "outcome_sha": null
+  "outcome": "done",
+  "outcome_sha": "d26999d7c2f2a2091fcd61da646c6e824aa2bd61"
 }
