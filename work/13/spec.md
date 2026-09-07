@@ -69,8 +69,23 @@ Criteria are written for "filtering enabled for language L" so they hold whichev
 - **Lowercasing versus casefolding.** `stats.py:34` uses `str.lower()`; for non-English lists (German "ß", Turkish dotless i) `lower()` and `casefold()` differ, so the stopword list and the tokens must be normalised the same way.
 - **Language identifier scheme.** The intent says "for a chosen language" but not how a language is named; the plan role should pick one scheme and reject anything else (criterion 9) rather than accept free text.
 
+## Maintainer decisions
+
+Answers to the three open questions, recorded by the maintainer on 2026-09-07:
+
+1. **Languages and list source.** English only in the first version, identified by the language code `en`.
+   The list is authored in this repository (a small `frozenset` of roughly 30 common English function words
+   in a new module `src/textkit/stopwords.py`), not copied from any third-party source, and is covered by
+   this repository's own licence. No data file, no runtime download, no new dependency. Approved.
+2. **Opt-in.** Filtering is off by default so existing results and output are unchanged. `top_words()`
+   gains a keyword-only parameter `stopwords: str | None = None` taking a language code (`"en"` is the only
+   accepted value; anything else raises `ValueError`). The CLI exposes it as `textkit stats FILE --stopwords en`,
+   and an unsupported code goes through `parser.error` (exit 2) naming the code. Existing tests that assert
+   `the: 3` stay as they are and new tests cover the opt-in path.
+3. **`word_count()` unchanged.** Stopwords are excluded from the ranking only. `word_count()` and the
+   `words:` line keep counting every whitespace token as today, so for `"the cat sat on the mat the cat"`
+   the answer to acceptance criterion 7 is `8`.
+
 ## Open questions
 
-- Which languages must the first version of stopword filtering in textkit support, and where does each language's stopword list come from (a file bundled under src/textkit with a licence you approve, or a runtime download from a source you approve)? This blocks all implementation, because the repository forbids third-party dependencies and unapproved bundled lists, leaving no permitted source for any list.
-- Should stopword filtering in top_words() and `textkit stats` be opt-in (existing results and output unchanged unless a language is requested) or on by default, and if you have a preferred parameter and flag name, what is it? This blocks the public API and CLI surface, and decides whether the existing tests asserting `the: 3` at the top of the sample are rewritten.
-- When stopwords are filtered, should word_count() and the `words:` line of `textkit stats` also exclude them, or keep counting every whitespace token as today? This blocks the word_count() signature and the meaning of the CLI report.
+- None.
