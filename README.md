@@ -5,7 +5,8 @@ tidying up plain text. It turns a title into a URL-friendly slug (`slugify`) and
 reports simple statistics about a document — word count, character count, and the
 most frequent words (`word_count`, `char_count`, `top_words`). The same functions are
 exposed on the command line as `textkit slug <text>` and `textkit stats <file>`, which
-print plain text meant to be read by a person or piped into another tool.
+print plain text by default. Stats also supports JSON output via
+`textkit stats <file> --format json`.
 
 This repository is a **disposable fixture** for the software-factory prototype. It
 exists so the factory has a small, realistic Python project to open issues against,

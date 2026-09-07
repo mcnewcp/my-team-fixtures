@@ -1,0 +1,4 @@
+{
+  "summary": "Implemented stats --format {text,json} in src/textkit/cli.py, preserving default text output and adding ordered, single-line JSON. Updated tests/test_cli.py with exact text, JSON contract, Unicode, validation, help, and missing-file coverage. Documented usage in README.md. Tests were written first: `uv run --frozen pytest tests/test_cli.py` initially produced 9 expected failures and 4 passes; after implementation, all 13 passed. `make test` passed all 28 tests; `make lint` passed. Changes remain uncommitted.",
+  "deviations": []
+}
