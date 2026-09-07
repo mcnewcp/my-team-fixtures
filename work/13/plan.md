@@ -225,13 +225,13 @@ Insert a new paragraph after line 8 (the CLI sentence), before the "disposable f
 
 1. Create `tests/test_stopwords.py` as above. Run `uv run --frozen pytest tests/test_stopwords.py`; it fails at import (`ImportError: cannot import name 'stopwords_for'`).
 2. Create `src/textkit/stopwords.py` and add the re-export to `src/textkit/__init__.py`. Re-run step 1's command; both tests pass.
-3. Append the six new tests to `tests/test_stats.py` (plus `import pytest`). Run `uv run --frozen pytest tests/test_stats.py`; the five `stopwords=` tests fail with `TypeError: top_words() got an unexpected keyword argument 'stopwords'`, the six existing tests still pass.
+3. Append the six new tests to `tests/test_stats.py` (plus `import pytest`). Run `uv run --frozen pytest tests/test_stats.py`; all six new tests (every one passes `stopwords=`) fail with `TypeError: top_words() got an unexpected keyword argument 'stopwords'`, the six existing tests still pass.
 4. Change `top_words()` in `src/textkit/stats.py` as specified. Re-run step 3's command; all 12 tests pass.
-5. Append the three new tests to `tests/test_cli.py`. Run `uv run --frozen pytest tests/test_cli.py`; the three new tests fail with `SystemExit` code 2 from argparse (`unrecognized arguments: --stopwords en`), the four existing tests still pass.
+5. Append the three new tests to `tests/test_cli.py`. Run `uv run --frozen pytest tests/test_cli.py`; `test_stats_command_can_exclude_stopwords` and `test_stats_command_prints_empty_top_for_only_stopwords` fail with `SystemExit` code 2 from argparse (`unrecognized arguments: --stopwords en`), the four existing tests still pass. `test_stats_command_rejects_unknown_stopword_language` already passes at this point because argparse rejects the unknown `--stopwords` option with exit 2 and echoes `xx` in the message; step 6 is what makes it pass for the intended reason (`unsupported stopword language: 'xx'`).
 6. Change `build_parser()`, `_format_stats()` and `main()` in `src/textkit/cli.py` as specified. Re-run step 5's command; all 7 tests pass.
 7. Update `README.md`.
 8. Run `make test` and `make lint`; both must exit 0. Fix any `ruff` line-length or import-order complaints (E501, I001 are the likely ones) without changing behaviour.
-9. Run `git status --porcelain -- pyproject.toml uv.lock` and confirm it prints nothing.
+9. Confirm `pyproject.toml` and `uv.lock` are untouched (`git status --porcelain -- pyproject.toml uv.lock` prints nothing). The build role cannot run `git`, so it confirms this by never opening either file; the factory's own diff is the check.
 
 ## Proof
 
@@ -240,12 +240,12 @@ Run from the repository root.
 | Command | Passing output proves |
 |---|---|
 | `uv run --frozen pytest tests/test_stopwords.py` | `stopwords_for("en")` returns a lower-case set containing `the`, `on`, `of`, `and`; unknown code raises `ValueError` naming it (criterion 9, part of 12). Fails before step 2 with `ImportError`. |
-| `uv run --frozen pytest tests/test_stats.py` | Criteria 1 (`test_top_words_can_exclude_english_stopwords`), 2 (`test_top_words_stopword_filter_is_case_insensitive`), 3 (`test_top_words_removes_stopwords_before_truncating`), 4 (`test_top_words_of_only_stopwords_is_empty`), 7 and 8 (`test_counts_are_not_affected_by_stopword_filtering`), 9 (`test_top_words_rejects_unknown_stopword_language`); 5 and 10 via the untouched `test_top_words_orders_by_count_then_alphabetically`, `test_top_words_edge_cases`, `test_word_count_counts_whitespace_separated_tokens`. The five new `stopwords=` tests fail before step 4 with `TypeError`. |
-| `uv run --frozen pytest tests/test_cli.py` | Criteria 6, 7, 8 (`test_stats_command_can_exclude_stopwords`, exact report string with `words: 8`, `chars: 30`, `  cat: 2` first, no `the` line), 4 (`test_stats_command_prints_empty_top_for_only_stopwords`, bare `top:` and exit 0), 9 (`test_stats_command_rejects_unknown_stopword_language`, exit 2, message contains `xx`); 5 via the untouched `test_stats_command_reports_counts` still seeing `  the: 3`. The three new tests fail before step 6 with `SystemExit(2)` from `unrecognized arguments`. |
-| `make test` | Whole suite (3 test files, 22 tests) exits 0 (criterion 14). |
+| `uv run --frozen pytest tests/test_stats.py` | Criteria 1 (`test_top_words_can_exclude_english_stopwords`), 2 (`test_top_words_stopword_filter_is_case_insensitive`), 3 (`test_top_words_removes_stopwords_before_truncating`), 4 (`test_top_words_of_only_stopwords_is_empty`), 7 and 8 (`test_counts_are_not_affected_by_stopword_filtering`), 9 (`test_top_words_rejects_unknown_stopword_language`); 5 and 10 via the untouched `test_top_words_orders_by_count_then_alphabetically`, `test_top_words_edge_cases`, `test_word_count_counts_whitespace_separated_tokens`. All six new tests fail before step 4 with `TypeError`. |
+| `uv run --frozen pytest tests/test_cli.py` | Criteria 6, 7, 8 (`test_stats_command_can_exclude_stopwords`, exact report string with `words: 8`, `chars: 30`, `  cat: 2` first, no `the` line), 4 (`test_stats_command_prints_empty_top_for_only_stopwords`, bare `top:` and exit 0), 9 (`test_stats_command_rejects_unknown_stopword_language`, exit 2, message contains `xx`); 5 via the untouched `test_stats_command_reports_counts` still seeing `  the: 3`. The first two new tests fail before step 6 with `SystemExit(2)` from `unrecognized arguments`; the third already passes then (argparse's unknown-option error is also exit 2 and names `xx`). |
+| `make test` | Whole suite (4 test files including the untouched `tests/test_slug.py`; 19 baseline tests + 11 new = 30) exits 0 (criterion 14). |
 | `make lint` | `ruff check .` exits 0 (criterion 14). |
 | `uv run --frozen --offline pytest` | Suite passes with the network disabled for `uv`; no download happens at test time (criterion 11). |
-| `git status --porcelain -- pyproject.toml uv.lock` | Empty output: `dependencies = []` and `uv.lock` untouched (criterion 11). |
+| `git status --porcelain -- pyproject.toml uv.lock` | Empty output: `dependencies = []` and `uv.lock` untouched (criterion 11). Run by the factory / reviewer, not the build role, which has no `git` access. |
 | `printf 'the cat sat on the mat the cat' > /tmp/tk.txt && uv run --frozen textkit stats /tmp/tk.txt --stopwords en` | Prints exactly `words: 8`, `chars: 30`, `top:`, `  cat: 2`, `  mat: 1`, `  sat: 1` (criteria 6, 7, 8 via the console script). |
 | `uv run --frozen textkit stats /tmp/tk.txt` | Prints today's output ending `  the: 3`, `  cat: 2`, `  mat: 1` (criterion 5: opt-in, off by default). |
 | `uv run --frozen textkit stats /tmp/tk.txt --stopwords xx; echo "exit=$?"` | stderr has `usage:` line plus `unsupported stopword language: 'xx' (supported: en)`, and `exit=2` (criterion 9). |
