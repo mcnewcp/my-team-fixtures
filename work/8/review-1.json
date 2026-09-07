@@ -1,0 +1,24 @@
+{
+  "summary": "The diff adds `separator` and `max_length` keyword arguments to `slugify` with two documented helpers in `slug.py`, forwards them as `--separator`/`--max-length` on the `textkit slug` subcommand with argparse-routed errors, and appends fifteen new tests to the two existing test files without altering any existing line. Bugs pass: the word-boundary cut is correct for single-character, multi-character and empty separators (traced by hand across the spec's cases and several multi-character edge lengths); the only gap is that non-ASCII separators pass validation but break the idempotence constraint because `_to_ascii` folds or drops them, which the spec and plan explicitly scoped out, so it is a nit. Security pass: nothing new. Compliance pass: exactly the four planned files change, the docstring satisfies criterion 22 with no \"hyphen\" remaining, criterion 1 is read as \"existing tests untouched\" and both test hunks contain only added lines, and the recorded check output shows `make test` (45 passed) and `make lint` both exiting 0; the plan's additional proof commands are not in the recorded output but their substance is demonstrated by the diff and the tests. No important findings; the change is fit to merge.",
+  "updates": [],
+  "new": [
+    {
+      "severity": "nit",
+      "pass": "bugs",
+      "file": "src/textkit/slug.py",
+      "line": 19,
+      "title": "Non-ASCII separator passes validation but breaks idempotence",
+      "detail": "The validation rejects only ASCII letters and digits, but any non-ASCII separator is folded or dropped by `_to_ascii` on the next call, so the idempotence constraint (same options on both calls) fails. `slugify(\"a b\", separator=\"\u00e9\")` returns `\"a\u00e9b\"`, and `slugify(\"a\u00e9b\", separator=\"\u00e9\")` returns `\"aeb\"`; `slugify(\"a b\", separator=\"\u00b7\")` returns `\"a\u00b7b\"` and re-slugifying gives `\"ab\"`. The docstring's stated rationale (\"such a separator cannot be told apart from word content\") applies equally to these separators. The spec and plan chose the ASCII-only rule deliberately, so this is a judgment call rather than a blocker, but the only separators that actually survive a round trip are ASCII non-alphanumeric strings.",
+      "evidence": "src/textkit/slug.py:19 `if any(char.isascii() and char.isalnum() for char in separator):` combined with `_to_ascii` at line 14 `return decomposed.encode(\"ascii\", \"ignore\").decode(\"ascii\")`, which removes or folds every non-ASCII character before the separator run regex runs on the second call."
+    },
+    {
+      "severity": "nit",
+      "pass": "bugs",
+      "file": "src/textkit/cli.py",
+      "line": 67,
+      "title": "Alphanumeric separator error prints top-level usage instead of slug usage",
+      "detail": "The `ValueError` from `slugify` is routed through the top-level `parser`, so `textkit slug --separator x Hello` prints `usage: textkit [-h] {slug,stats} ...` and `textkit: error: separator must not contain ...`, whereas the argparse-validated `--max-length abc` prints the slug subparser's usage (`usage: textkit slug [-h] [--separator SEPARATOR] [--max-length N] text`) and `textkit slug: error: ...`. The two usage errors for the same subcommand show different usage lines; the exit code and `usage:` substring are correct, so the tests pass, but the message is less helpful for the separator case.",
+      "evidence": "src/textkit/cli.py:66-67 `except ValueError as exc:` / `parser.error(str(exc))` where `parser` is the top-level parser built by `build_parser()`, not `slug_parser`."
+    }
+  ]
+}
