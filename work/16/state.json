@@ -4,6 +4,10 @@
     "sha": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf"
   },
   "branch": "factory/16",
+  "build_summary": {
+    "deviations": [],
+    "summary": "Implemented default English stopword filtering for counts and rankings, opt-out controls, validation, tests, and documentation. Confirmed 102 failures before implementation. Final checks passed: make test (119 tests), make lint, uv build --wheel, wheel-import assertions, and git diff --check. Reviewed git diff --stat. Used a writable temporary uv cache and offline build dependencies."
+  },
   "fix_rounds": 0,
   "issue": {
     "number": 16,
@@ -29,6 +33,14 @@
     "Should stopwords be excluded only from the ranking, or also from word counts? If counts are filtered, how should that apply to the public `word_count()` function and the CLI's `words:` field?"
   ],
   "stages": {
+    "build": {
+      "at": "2026-09-07T19:22:46Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "commit": "checkpoint:11e7f116f5614f99ab98cf0e4027c31f",
+      "harness": "codex",
+      "model": "CLI default"
+    },
     "plan": {
       "at": "2026-09-07T19:17:06Z",
       "auth": "subscription",
