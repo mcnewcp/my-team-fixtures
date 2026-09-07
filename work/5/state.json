@@ -40,7 +40,18 @@
   },
   "spec_open_questions": [],
   "spec_accepted": null,
-  "reviews": [],
+  "reviews": [
+    {
+      "round": 1,
+      "sha": "0c4ed08ebc503a26bb66f81dcf14025a09354ea3",
+      "important_open": 0,
+      "important_resolved": 0,
+      "nits": 0,
+      "reraised_dropped": 0,
+      "fix_rounds_at": 0,
+      "diff_truncated": false
+    }
+  ],
   "fix_rounds": 0,
   "pr": {
     "number": 10,
