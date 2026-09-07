@@ -5,10 +5,6 @@
   },
   "branch": "factory/16",
   "fix_rounds": 0,
-  "gate_notice": {
-    "ref": "checkpoint:4e67a6d75d9942da8446597595eb435f",
-    "sent": true
-  },
   "issue": {
     "number": 16,
     "snapshot_at": "2026-09-07T19:07:39Z",
@@ -16,14 +12,17 @@
     "title": "Filter stopwords in textkit stats",
     "url": "https://github.com/mcnewcp/my-team-fixtures/issues/16"
   },
-  "outcome": "needs_human:open_questions",
-  "outcome_sha": "checkpoint:578fadaf8f7049e6af38629af5cf7831",
+  "outcome": null,
+  "outcome_sha": null,
   "pr": {
     "number": 17,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/17"
   },
   "reviews": [],
-  "spec_accepted": null,
+  "spec_accepted": {
+    "at": "2026-09-07T19:14:22Z",
+    "by": "operator"
+  },
   "spec_open_questions": [
     "Which languages must the first version support, and what stopword source is approved for each: a bundled list with which maintainer-approved licence, or a runtime download from which source?",
     "Should filtering be enabled by default or opt-in for `stats` and `top_words()`? What CLI flag and Python parameter names, language-selection syntax, and omitted-configuration behavior should be used?",
