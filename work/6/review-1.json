@@ -1,0 +1,5 @@
+{
+  "summary": "Review is blocked because the instructions prohibit shell commands and no non-shell local file reader is available to read `.factory/tmp/review-1.diff`. The bugs, security, and compliance passes could not be performed, so merge readiness remains unassessed. Empty findings do not indicate approval.",
+  "updates": [],
+  "new": []
+}
