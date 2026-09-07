@@ -18,6 +18,15 @@
       "cli_version": "codex-cli 0.153.4",
       "auth": "subscription",
       "permission_denials": 0
+    },
+    "plan": {
+      "start_commit": "b0a862331e72f1e96b073cb0bd96659221752087",
+      "at": "2026-09-07T16:20:06Z",
+      "harness": "codex",
+      "model": "(cli default)",
+      "cli_version": "codex-cli 0.153.4",
+      "auth": "subscription",
+      "permission_denials": 0
     }
   },
   "spec_open_questions": [],
