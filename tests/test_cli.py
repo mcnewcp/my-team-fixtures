@@ -20,6 +20,25 @@ def test_stats_command_reports_counts(tmp_path, capsys):
     assert "words: 8" in out
     assert "chars: 30" in out
     assert "  the: 3" in out
+    assert out == "words: 8\nchars: 30\ntop:\n  the: 3\n  cat: 2\n  mat: 1\n"
+
+
+def test_stats_command_ignores_standalone_punctuation(tmp_path, capsys):
+    """Verify the stats report excludes standalone punctuation from words and rankings."""
+    sample = tmp_path / "sample.txt"
+    sample.write_text("a -- a -- b", encoding="utf-8")
+
+    assert main(["stats", str(sample)]) == 0
+    assert capsys.readouterr().out == "words: 3\nchars: 11\ntop:\n  a: 2\n  b: 1\n"
+
+
+def test_stats_command_with_only_punctuation(tmp_path, capsys):
+    """Verify a punctuation-only report has zero words and an empty ranking."""
+    sample = tmp_path / "sample.txt"
+    sample.write_text("-- ... !!!", encoding="utf-8")
+
+    assert main(["stats", str(sample)]) == 0
+    assert capsys.readouterr().out == "words: 0\nchars: 10\ntop:\n"
 
 
 def test_stats_command_rejects_a_missing_file(tmp_path, capsys):

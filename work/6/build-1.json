@@ -1,0 +1,6 @@
+{
+  "summary": "Updated src/textkit/stats.py with shared alphanumeric token filtering and accurate docstrings. Added six regressions across tests/test_stats.py and tests/test_cli.py, preserving existing assertions and strengthening exact CLI output coverage. Updated work/6/plan.md for the cache adjustment. Verification: initial `uv run --frozen pytest tests/test_stats.py::test_word_count_ignores_non_alphanumeric_tokens` exited 2 because uv\u2019s default cache was read-only. With `UV_CACHE_DIR=/tmp/textkit-issue-6-uv-cache` prefixed, that command failed before implementation and passed afterward; `uv run --frozen pytest tests/test_stats.py tests/test_cli.py` produced 6 expected failures before implementation and 16 passes afterward; `make test` passed all 25 tests; `make lint` passed. Reviewed `git diff -- src/textkit/stats.py tests/test_stats.py tests/test_cli.py` successfully and confirmed only the four files listed in the updated plan changed. No commits made.",
+  "deviations": [
+    "The plan specified proof/check commands without a cache override and changes to three files. The default uv cache was read-only, so P1, P2, P4, and P5 ran with UV_CACHE_DIR=/tmp/textkit-issue-6-uv-cache; work/6/plan.md was also updated to document this adjustment and its additional changed path. Implementation and regression scope remained as planned."
+  ]
+}

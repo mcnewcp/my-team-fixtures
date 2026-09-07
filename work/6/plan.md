@@ -3,6 +3,7 @@
 - `src/textkit/stats.py` — Filter tokens once in `_tokens` using `str.isalnum()` and update the word-related docstrings to describe qualification.
 - `tests/test_stats.py` — Add regression assertions for excluded tokens and preserve coverage of qualifying tokens, Unicode, casing, ranking, limits, whitespace, and character counts.
 - `tests/test_cli.py` — Add exact-output punctuation regressions through `main` and strengthen the existing report test to verify the three-entry maximum.
+- `work/6/plan.md` — Document the writable uv cache required by the build environment.
 
 ## Order of work
 
@@ -40,11 +41,18 @@
 
    Update `_tokens`’s docstring to say it returns whitespace-separated tokens containing at least one alphanumeric character. Update `word_count`’s docstring to describe counting those tokens, and add that qualification definition to `top_words`’s docstring while retaining its casing, ordering, and `n` documentation. Keep the existing token regex, signatures, `word_count` delegation, `top_words` lowercasing and sorting, and `char_count` implementation. The existing CLI delegation and public exports already propagate the correction. This implements acceptance criteria 1–10.
 
-6. **Verify the completed change.** Rerun P1 and P2, review P3, then run P4 and P5. All test and lint commands must exit zero. Confirm the patch contains only the three listed files. This completes acceptance criteria 10–11.
+6. **Verify the completed change.** Rerun P1 and P2, review P3, then run P4 and P5. All test and lint commands must exit zero. Confirm the patch contains only the three implementation/test files and this plan update. This completes acceptance criteria 10–11.
 
 ## Proof
 
 Run these commands from the repository root during implementation. No tests or lint checks were executed during planning.
+
+Build environment adjustment: prefix P1, P2, P4, and P5 with
+`UV_CACHE_DIR=/tmp/textkit-issue-6-uv-cache` so uv uses a writable cache. The first
+unprefixed P1 attempt exited 2 before collecting tests because the default
+`/home/mcnewcp/.cache/uv` cache could not acquire a lock on the read-only filesystem.
+The prefixed P1 then failed as required because `word_count("hello -- world")`
+returned 3 instead of 2.
 
 | ID | Exact command | Evidence |
 | --- | --- | --- |
@@ -55,6 +63,14 @@ Run these commands from the repository root during implementation. No tests or l
 | P5 | `make lint` | Ruff success and exit status 0 prove the patch satisfies the repository’s lint check; completes criterion 11. |
 
 Acceptance mapping: criterion 1 → steps 2 and 5, P1/P2; criteria 2–7 → steps 3 and 5, P2; criteria 8–9 → steps 4 and 5, P2; criterion 10 → steps 3, 5, and 6, P3; criterion 11 → step 6, P4/P5.
+
+## Build deviations
+
+- The plan specified proof/check commands without a cache override and changes to
+  three files. The default uv cache was read-only, so P1, P2, P4, and P5 run with
+  `UV_CACHE_DIR=/tmp/textkit-issue-6-uv-cache`; this plan is also updated to record
+  that environment adjustment. The implementation and regression scope remain
+  as planned.
 
 ## Risks
 
