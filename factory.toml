@@ -20,3 +20,4 @@ pinned_version = ""                # doctor warns on mismatch; actual version re
 [harness.codex]
 model = ""
 pinned_version = ""
+writable_dirs = ["~/.cache/uv"]   # let a sandboxed codex builder write the uv cache (workspace-write blocks $HOME)
