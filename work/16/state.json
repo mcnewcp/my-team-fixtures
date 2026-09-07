@@ -5,6 +5,10 @@
   },
   "branch": "factory/16",
   "fix_rounds": 0,
+  "gate_notice": {
+    "ref": "checkpoint:4e67a6d75d9942da8446597595eb435f",
+    "sent": false
+  },
   "issue": {
     "number": 16,
     "snapshot_at": "2026-09-07T19:07:39Z",
@@ -12,8 +16,8 @@
     "title": "Filter stopwords in textkit stats",
     "url": "https://github.com/mcnewcp/my-team-fixtures/issues/16"
   },
-  "outcome": null,
-  "outcome_sha": null,
+  "outcome": "needs_human:open_questions",
+  "outcome_sha": "checkpoint:4e67a6d75d9942da8446597595eb435f",
   "pr": {
     "number": 17,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/17"
