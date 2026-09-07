@@ -27,6 +27,15 @@
       "cli_version": "2.1.263 (Claude Code)",
       "auth": "subscription",
       "permission_denials": 0
+    },
+    "build": {
+      "start_commit": "7753b3f5a1e1efae7508f24d32855412d0d07520",
+      "at": "2026-09-07T02:06:46Z",
+      "harness": "claude",
+      "model": "claude-fable-5-1",
+      "cli_version": "2.1.263 (Claude Code)",
+      "auth": "subscription",
+      "permission_denials": 1
     }
   },
   "spec_open_questions": [],
