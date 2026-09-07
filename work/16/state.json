@@ -16,8 +16,8 @@
     "title": "Filter stopwords in textkit stats",
     "url": "https://github.com/mcnewcp/my-team-fixtures/issues/16"
   },
-  "outcome": null,
-  "outcome_sha": null,
+  "outcome": "done",
+  "outcome_sha": "checkpoint:117101c5e8fd46efa77d7a8b4394325b",
   "pr": {
     "number": 17,
     "url": "https://github.com/mcnewcp/my-team-fixtures/pull/17"
