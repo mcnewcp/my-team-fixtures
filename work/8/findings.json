@@ -1,0 +1,36 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "key": "d4199fe2c706aeeed83d313334c6d89306be51f8",
+      "pass": "bugs",
+      "severity": "nit",
+      "file": "src/textkit/slug.py",
+      "line": 19,
+      "title": "Non-ASCII separator passes validation but breaks idempotence",
+      "detail": "The validation rejects only ASCII letters and digits, but any non-ASCII separator is folded or dropped by `_to_ascii` on the next call, so the idempotence constraint (same options on both calls) fails. `slugify(\"a b\", separator=\"é\")` returns `\"aéb\"`, and `slugify(\"aéb\", separator=\"é\")` returns `\"aeb\"`; `slugify(\"a b\", separator=\"·\")` returns `\"a·b\"` and re-slugifying gives `\"ab\"`. The docstring's stated rationale (\"such a separator cannot be told apart from word content\") applies equally to these separators. The spec and plan chose the ASCII-only rule deliberately, so this is a judgment call rather than a blocker, but the only separators that actually survive a round trip are ASCII non-alphanumeric strings.",
+      "evidence": "src/textkit/slug.py:19 `if any(char.isascii() and char.isalnum() for char in separator):` combined with `_to_ascii` at line 14 `return decomposed.encode(\"ascii\", \"ignore\").decode(\"ascii\")`, which removes or folds every non-ASCII character before the separator run regex runs on the second call.",
+      "opened_round": 1,
+      "status": "open",
+      "status_round": null,
+      "status_evidence": null,
+      "dismissed_reason": null
+    },
+    {
+      "id": "F2",
+      "key": "e1ed2f08ae4ebb0af661c4aa59c0795bcf97f28c",
+      "pass": "bugs",
+      "severity": "nit",
+      "file": "src/textkit/cli.py",
+      "line": 67,
+      "title": "Alphanumeric separator error prints top-level usage instead of slug usage",
+      "detail": "The `ValueError` from `slugify` is routed through the top-level `parser`, so `textkit slug --separator x Hello` prints `usage: textkit [-h] {slug,stats} ...` and `textkit: error: separator must not contain ...`, whereas the argparse-validated `--max-length abc` prints the slug subparser's usage (`usage: textkit slug [-h] [--separator SEPARATOR] [--max-length N] text`) and `textkit slug: error: ...`. The two usage errors for the same subcommand show different usage lines; the exit code and `usage:` substring are correct, so the tests pass, but the message is less helpful for the separator case.",
+      "evidence": "src/textkit/cli.py:66-67 `except ValueError as exc:` / `parser.error(str(exc))` where `parser` is the top-level parser built by `build_parser()`, not `slug_parser`.",
+      "opened_round": 1,
+      "status": "open",
+      "status_round": null,
+      "status_evidence": null,
+      "dismissed_reason": null
+    }
+  ]
+}

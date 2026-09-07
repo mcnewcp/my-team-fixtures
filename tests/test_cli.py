@@ -33,3 +33,39 @@ def test_no_subcommand_is_a_usage_error():
     with pytest.raises(SystemExit) as excinfo:
         main([])
     assert excinfo.value.code == 2
+
+
+def test_slug_command_accepts_separator(capsys):
+    assert main(["slug", "--separator", "_", "Hello, World!"]) == 0
+    assert capsys.readouterr().out == "hello_world\n"
+
+
+def test_slug_command_accepts_max_length(capsys):
+    assert main(["slug", "--max-length", "5", "Hello, World! 2026"]) == 0
+    assert capsys.readouterr().out == "hello\n"
+
+
+@pytest.mark.parametrize("value", ["abc", "0"])
+def test_slug_command_rejects_a_bad_max_length(value, capsys):
+    with pytest.raises(SystemExit) as excinfo:
+        main(["slug", "--max-length", value, "Hello"])
+    assert excinfo.value.code == 2
+    assert "usage:" in capsys.readouterr().err
+
+
+def test_slug_command_rejects_an_alphanumeric_separator(capsys):
+    with pytest.raises(SystemExit) as excinfo:
+        main(["slug", "--separator", "x", "Hello"])
+    assert excinfo.value.code == 2
+    assert "usage:" in capsys.readouterr().err
+
+
+def test_slug_help_lists_both_options(capsys):
+    with pytest.raises(SystemExit) as excinfo:
+        main(["slug", "--help"])
+    assert excinfo.value.code == 0
+    out = capsys.readouterr().out
+    assert "--separator" in out
+    assert "default: '-'" in out
+    assert "--max-length" in out
+    assert "no limit" in out
