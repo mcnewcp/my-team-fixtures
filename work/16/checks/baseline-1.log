@@ -1,0 +1,16 @@
+$ make test
+uv run --frozen pytest
+Using CPython 3.14.7
+Creating virtual environment at: .venv
+   Building textkit @ file:///home/mcnewcp/personal/my-team-fixtures-cp2/.factory/worktrees/16
+      Built textkit @ file:///home/mcnewcp/personal/my-team-fixtures-cp2/.factory/worktrees/16
+Installed 7 packages in 3ms
+...................                                                      [100%]
+19 passed in 0.03s
+
+exit 0
+$ make lint
+uv run --frozen ruff check .
+All checks passed!
+
+exit 0

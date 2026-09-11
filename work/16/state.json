@@ -1,0 +1,77 @@
+{
+  "base": {
+    "branch": "main",
+    "sha": "ae0601882d2d7a77376a3b04fbc1196f07c4d3bf"
+  },
+  "branch": "factory/16",
+  "build_summary": {
+    "deviations": [],
+    "summary": "Implemented default English stopword filtering for counts and rankings, opt-out controls, validation, tests, and documentation. Confirmed 102 failures before implementation. Final checks passed: make test (119 tests), make lint, uv build --wheel, wheel-import assertions, and git diff --check. Reviewed git diff --stat. Used a writable temporary uv cache and offline build dependencies."
+  },
+  "fix_rounds": 0,
+  "issue": {
+    "number": 16,
+    "snapshot_at": "2026-09-07T19:07:39Z",
+    "snapshot_sha256": "06bfd985da4141b9f4f96aa04558a759871fb911d4f48c409de52af245be02a9",
+    "title": "Filter stopwords in textkit stats",
+    "url": "https://github.com/mcnewcp/my-team-fixtures/issues/16"
+  },
+  "outcome": "done",
+  "outcome_sha": "checkpoint:117101c5e8fd46efa77d7a8b4394325b",
+  "pr": {
+    "number": 17,
+    "url": "https://github.com/mcnewcp/my-team-fixtures/pull/17"
+  },
+  "reviews": [
+    {
+      "at": "2026-09-07T19:24:13Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "fix_rounds": 0,
+      "harness": "codex",
+      "important_open": 0,
+      "important_resolved": 0,
+      "model": "CLI default",
+      "nits": 0,
+      "reraised_dropped": 0,
+      "reviewed_input_sha": "018b11b88d0d8f5729ffee93283cee033c690c94",
+      "round": 1,
+      "sha": "checkpoint:cdcaa8186e71476ab2153139c05b9652"
+    }
+  ],
+  "spec_accepted": {
+    "at": "2026-09-07T19:14:22Z",
+    "by": "operator"
+  },
+  "spec_open_questions": [
+    "Which languages must the first version support, and what stopword source is approved for each: a bundled list with which maintainer-approved licence, or a runtime download from which source?",
+    "Should filtering be enabled by default or opt-in for `stats` and `top_words()`? What CLI flag and Python parameter names, language-selection syntax, and omitted-configuration behavior should be used?",
+    "Should stopwords be excluded only from the ranking, or also from word counts? If counts are filtered, how should that apply to the public `word_count()` function and the CLI's `words:` field?"
+  ],
+  "stages": {
+    "build": {
+      "at": "2026-09-07T19:22:46Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "commit": "checkpoint:11e7f116f5614f99ab98cf0e4027c31f",
+      "harness": "codex",
+      "model": "CLI default"
+    },
+    "plan": {
+      "at": "2026-09-07T19:17:06Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "commit": "checkpoint:3e926b487807469a85913d8e405ff096",
+      "harness": "codex",
+      "model": "CLI default"
+    },
+    "spec": {
+      "at": "2026-09-07T19:09:02Z",
+      "auth": "subscription",
+      "cli_version": "codex-cli 0.153.4",
+      "commit": "checkpoint:510cb1a5e4f94af78dd26d6950d344cb",
+      "harness": "codex",
+      "model": "CLI default"
+    }
+  }
+}

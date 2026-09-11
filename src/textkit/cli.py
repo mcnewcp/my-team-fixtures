@@ -12,7 +12,7 @@ TOP_WORDS_SHOWN = 3
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build the argument parser for the ``textkit`` command."""
+    """Return the argument parser for the ``textkit`` command."""
     parser = argparse.ArgumentParser(prog="textkit", description="Small text utilities.")
     subcommands = parser.add_subparsers(dest="command", required=True)
 
@@ -21,14 +21,22 @@ def build_parser() -> argparse.ArgumentParser:
 
     stats_parser = subcommands.add_parser("stats", help="print statistics for FILE")
     stats_parser.add_argument("file", type=Path, help="UTF-8 text file to summarize")
+    stats_parser.add_argument(
+        "--language", choices=("en",), default="en", help="stopword language (default: en)"
+    )
+    stats_parser.add_argument(
+        "--no-stopwords", action="store_true", help="include stopwords in word counts and rankings"
+    )
 
     return parser
 
 
-def _format_stats(text: str) -> str:
-    """Render the plain-text statistics report for ``text``."""
-    lines = [f"words: {word_count(text)}", f"chars: {char_count(text)}", "top:"]
-    lines += [f"  {word}: {count}" for word, count in top_words(text, TOP_WORDS_SHOWN)]
+def _format_stats(text: str, *, language: str | None = "en") -> str:
+    """Return the plain-text report using the selected stopword language."""
+    lines = [f"words: {word_count(text, language=language)}", f"chars: {char_count(text)}", "top:"]
+    lines += [
+        f"  {word}: {count}" for word, count in top_words(text, TOP_WORDS_SHOWN, language=language)
+    ]
     return "\n".join(lines)
 
 
@@ -43,7 +51,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.file.is_file():
         parser.error(f"no such file: {args.file}")
-    print(_format_stats(args.file.read_text(encoding="utf-8")))
+    language = None if args.no_stopwords else args.language
+    print(_format_stats(args.file.read_text(encoding="utf-8"), language=language))
     return 0
 
 

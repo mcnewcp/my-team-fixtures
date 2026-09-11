@@ -1,0 +1,12 @@
+$ make test
+uv run --frozen pytest
+........................................................................ [ 60%]
+...............................................                          [100%]
+119 passed in 0.09s
+
+exit 0
+$ make lint
+uv run --frozen ruff check .
+All checks passed!
+
+exit 0
